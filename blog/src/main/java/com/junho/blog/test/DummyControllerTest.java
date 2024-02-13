@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,8 @@ import com.junho.blog.model.RoleType;
 import com.junho.blog.model.User;
 import com.junho.blog.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 public class DummyControllerTest {
 	
@@ -27,7 +30,24 @@ public class DummyControllerTest {
 	private UserRepository userRepository;
 	
 	//localhost:8080/blog/dummy/user/{id}
+	// user 삭제
+	@DeleteMapping("/dummy/user/{id}")
+	public String deleteUser(@PathVariable int id) {
+		try {
+			userRepository.deleteById(id);
+		}catch(Exception e){
+			return "삭제에 실패하였습니다. 해당 id는 DB에 없습니다.";
+		}
+		
+		return "삭제되었습니다. "+ id;
+	}
+	
+	
+	
+	
+	//localhost:8080/blog/dummy/user/{id}
 	// email,password 수정
+	@Transactional // 함수  종료시에 자동 commit 
 	@PutMapping("/dummy/user/{id}")
 	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { 
 		// @RequestBody : body에 붙어온 json 데이터를 -> java Object 변환
@@ -45,9 +65,11 @@ public class DummyControllerTest {
 		user.setPassword(requestUser.getPassword());
 		user.setEmail(requestUser.getEmail());
 		
-		userRepository.save(user);
+		// userRepository.save(user);
 		// save메소드에 user 값이 프라이머리 키인 id값이 있을경우 update 
 		// save메소드에 user 값에 id가 없을경우 insert를 합니다
+		
+		// 더티 체킹
 		return null;
 	}
 	

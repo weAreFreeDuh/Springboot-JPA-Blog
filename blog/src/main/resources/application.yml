@@ -36,7 +36,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create #jpa 테이블 생성을 할 것인가 (테이블 생성후 데이터를 보존하고 싶다면 update로 변경!!)
+      ddl-auto: update #jpa 테이블 생성을 할 것인가 (테이블 생성후 데이터를 보존하고 싶다면 update로 변경!!)
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl 
         #컬럼을 생성할 때 이름 그대로 설정 
