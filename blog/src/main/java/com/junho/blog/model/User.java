@@ -1,8 +1,5 @@
 package com.junho.blog.model;
 
-
-
-
 import java.sql.Timestamp;
 
 import org.hibernate.annotations.ColumnDefault;

@@ -1,6 +1,7 @@
 package com.junho.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,17 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@Transactional
 	public int join(User user) {
 		try {
 			user.setRole(RoleType.USER);
+			String encPassword = encoder.encode(user.getPassword()); // 해쉬화
+			user.setPassword(encPassword);
 			log.debug("userRepository : join 회원가입 User Info{}"+ user);
+			
 			userRepository.save(user);
 			return 1;
 		} catch (Exception e) {
@@ -31,9 +38,9 @@ public class UserService {
 		return -1;
 	}
 	
-	@Transactional(readOnly = true) // Select 할 때 트랜잭션 시작, 서비스 종료시에 트렌잭션 종료 (정합성 높여줍니다)
-	public User login(User user) {
-		return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()); 
-	}
+//	@Transactional(readOnly = true) // Select 할 때 트랜잭션 시작, 서비스 종료시에 트렌잭션 종료 (정합성 높여줍니다)
+//	public User login(User user) {
+//		return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()); 
+//	}
 
 }

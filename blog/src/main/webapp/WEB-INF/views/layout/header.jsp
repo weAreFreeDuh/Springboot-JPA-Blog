@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +14,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/64c1de1f17.js" crossorigin="anonymous"></script>
 <script src="/js/common.js" crossorigin="anonymous"></script>
+
+<!-- 서머노트  -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
 </head>
 <body>
+
+	<sec:authorize access="isAuthenticated()">
+		<%-- <sec:authentication property="principal"/> --%>
+		<sec:authentication property="principal" var="principal" />
+	</sec:authorize>
 
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 		<a class="navbar-brand" href="/">junho</a>
@@ -24,10 +36,10 @@
 
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<c:choose>
-				<c:when test="${empty sessionScope.principal}">
+				<c:when test="${empty principal}">
 					<ul class="navbar-nav">
-						<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
-						<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/loginForm">로그인</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/joinForm">회원가입</a></li>
 					</ul>
 				</c:when>
 				<c:otherwise>

@@ -4,19 +4,22 @@
 
 <div class="container">
 
-	<form action="/user/join">
+	<form action="/auth/loginProc"  method="post" >
 		<div class="form-group">
-			<label for="email">Email</label> <input type="email" class="form-control" placeholder="Enter email" id="email">
+			<label for="email">username</label> 
+			<input type="text" class="form-control"  placeholder="Enter email"  id="username"  name="username">
 		</div>
 		<div class="form-group">
-			<label for="Password">Password</label> <input type="password" class="form-control" placeholder="Enter password" id="password">
+			<label for="Password">Password</label> 
+			<input type="password" class="form-control" placeholder="Enter password" id="password"  name="password">
 		</div>
 		<div class="form-group form-check">
-			<label class="form-check-label"> <input class="form-check-input" type="checkbox"> Remember me
+			<label class="form-check-label"> 
+			<input name="remember" class="form-check-input" type="checkbox"> Remember me
 			</label>
 		</div>
+		<button id="btn-login" class="btn btn-primary">login</button>
 	</form>
-	<button id="btn-login" class="btn btn-primary">login</button>
 </div>
 
 <script src="/js/user.js"></script>

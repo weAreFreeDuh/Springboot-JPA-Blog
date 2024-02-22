@@ -6,10 +6,10 @@
 
 	<form>
 		<div class="form-group">
-			<label for="email">Username</label> <input type="text" class="form-control" placeholder="Enter Username" id="username">
+			<label for="email">Email</label> <input type="email" class="form-control" placeholder="Enter email" id="email">
 		</div>
 		<div class="form-group">
-			<label for="email">Email</label> <input type="email" class="form-control" placeholder="Enter email" id="email">
+			<label for="email">Username</label> <input type="text" class="form-control" placeholder="Enter Username" id="username">
 		</div>
 		<div class="form-group">
 			<label for="Password">Password</label> <input type="password" class="form-control" placeholder="Enter password" id="password">
